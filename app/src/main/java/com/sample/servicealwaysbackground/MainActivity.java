@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         Log.i("MyActivity", "Service Data Output ");
         startService(new Intent(getApplicationContext(),MyServices.class));
-        isStoragePermissionGranted();
+        //isStoragePermissionGranted();
 
         //This will close the app after lunch
 //        finish();

